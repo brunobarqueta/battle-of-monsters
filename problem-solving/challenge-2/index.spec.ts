@@ -1,4 +1,5 @@
 import { diceFacesCalculator } from './index';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Challenge 2', () => {
   it('Test Case 1', () => {

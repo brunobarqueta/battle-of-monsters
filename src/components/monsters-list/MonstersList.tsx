@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, } from "react"
 import { useAppDispatch } from "../../app/hooks"
 import { Monster } from "../../models/interfaces/monster.interface"
-import { setSelectedMonster } from "../../reducers/monsters/monsters.actions"
+import { setSelectedMonster, setSelectedComputerMonster } from "../../reducers/monsters/monsters.actions"
 import { Image, ListTitle, MonsterCard, MonsterName, MonstersSection } from "./MonstersList.styled"
 
 type MonstersListProps = {
@@ -17,21 +17,29 @@ const MonstersList: React.FC<MonstersListProps> = ({ monsters }) => {
         const value = selectedMonsterId === monster.id ? null : monster.id
         setSelectedMonsterId(value)
         dispatch(setSelectedMonster(!value ? null : monster));
+        const computerMonster = randomMonster(monsters, value);
+        dispatch(setSelectedComputerMonster(!value ? null : computerMonster));
+    }
+
+    const randomMonster = (monsters: Monster[], selectedMonsterId: string | null) => {
+        const monstersFiltered = monsters.filter((monster) => monster.id != selectedMonsterId)
+        return monstersFiltered[Math.floor(Math.random() * monstersFiltered.length)];
     }
 
     return (
         <div>
-            <ListTitle>{monsters.length > 0 ? 'Select your monster': 'No monsters available'}</ListTitle>
+            <ListTitle>{monsters.length > 0 ? 'Select your monster' : 'No monsters available'}</ListTitle>
 
             <MonstersSection data-testid="monsters-list-section">
-                {monsters.map(monster => (
-                    <MonsterCard key={monster.id} onClick={() => handleMonsterClick(monster)} selected={monster.id === selectedMonsterId} data-testid={monster.id}>
-                        <Image src={monster.imageUrl} />
-                        <MonsterName>
-                            {monster.name}
-                        </MonsterName>
-                    </MonsterCard>
-                ))}
+                {monsters.length > 0 ? (
+                    monsters.map(monster => (
+                        <MonsterCard key={monster.id} onClick={() => handleMonsterClick(monster)} selected={monster.id === selectedMonsterId} data-testid={monster.id}>
+                            <Image src={monster.imageUrl} />
+                            <MonsterName>
+                                {monster.name}
+                            </MonsterName>
+                        </MonsterCard>
+                    ))) : null}
             </MonstersSection>
         </div>
     )

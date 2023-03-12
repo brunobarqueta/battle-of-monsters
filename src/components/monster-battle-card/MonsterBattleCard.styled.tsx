@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Card, LinearProgress, linearProgressClasses, Typography } from "@mui/material"
+import { Card, LinearProgress, linearProgressClasses, Typography, Divider } from "@mui/material"
 import { colors } from "../../constants/colors"
 
 export const BattleMonsterCard = styled(Card, { shouldForwardProp: (prop) => prop !== "centralized" })<{ centralized?: boolean; }>(({ centralized }) => ({
@@ -13,17 +13,27 @@ export const BattleMonsterCard = styled(Card, { shouldForwardProp: (prop) => pro
     alignItems: centralized ? 'center' : 'auto',
     justifyContent: centralized ? 'center' : 'auto',
 }))
-  
+
 export const BattleMonsterTitle = styled(Typography)(() => ({
     fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '36px',
-    lineHeight: '42px',
+    lineHeight: '70px',
+    color: colors.black,
+}))
+
+export const BattleMonsterStats = styled(Typography)(() => ({
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '12px',
+    lineHeight: '24px',
     color: colors.black,
 }))
 
 export const ProgressBar = styled(LinearProgress)(() => ({
+    width: 283,
     height: 8,
     borderRadius: 15,
     [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -34,3 +44,15 @@ export const ProgressBar = styled(LinearProgress)(() => ({
         backgroundColor: colors.progressColor,
     },
 }));
+
+export const Image = styled.img(() => ({
+    borderRadius: '7px',
+    width: '283px',
+    height: '178px',
+}))
+
+export const Hr = styled(Divider)(() => ({
+    width: '283px',
+    height:' 0px',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+}))

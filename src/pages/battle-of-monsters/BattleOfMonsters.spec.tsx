@@ -16,7 +16,7 @@ const battleOfMonstersFactory = async () => {
     })
     render(
         <Provider store={store}>
-          <BattleOfMonsters />
+            <BattleOfMonsters />
         </Provider>
     )
     await waitFor(() => expect(screen.getByTestId('monsters-list-section').childNodes).toHaveLength(monstersData.monsters.length))
@@ -28,7 +28,7 @@ describe('BattleOfMonsters', () => {
         mockFetch.resetMocks()
     })
 
-    it('should render the page container', async () => { 
+    it('should render the page container', async () => {
         await battleOfMonstersFactory()
         expect(screen.getByText(/Battle of Monsters/i)).toBeInTheDocument()
         expect(screen.getByTestId('start-battle-button')).toBeInTheDocument()
@@ -49,5 +49,15 @@ describe('BattleOfMonsters', () => {
         expect(screen.getByTestId('monster-1')).toBeInTheDocument()
         await act(() => screen.getByTestId('monster-1').click())
         await act(() => screen.getByTestId('start-battle-button').click())
+    })
+
+    it('should show the monster info in the battle cards', async () => {
+        await battleOfMonstersFactory()
+        expect(screen.getByTestId('monster-1')).toBeInTheDocument()
+        await act(() => screen.getByTestId('monster-1').click())
+        const elements = screen.getAllByText(/HP/i)
+        elements.forEach((el) => {
+            expect(el).toBeInTheDocument();
+        })
     })
 })

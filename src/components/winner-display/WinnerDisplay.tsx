@@ -6,7 +6,7 @@ type Props = {
 
 const WinnerDisplay: React.FC<Props> = ({ text }) => (
     <WinnerDisplayContainer>
-        <WinnerText>{text} wins!</WinnerText>
+        <WinnerText data-testid="winner">{text} wins!</WinnerText>
     </WinnerDisplayContainer>
 )
 
